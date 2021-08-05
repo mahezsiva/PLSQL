@@ -1,0 +1,153 @@
+
+-- palimdrome
+DECLARE 
+    s VARCHAR2(10) := 'spring'; 
+    l VARCHAR2(20); 
+    t VARCHAR2(10); 
+BEGIN 
+    FOR i IN REVERSE 1..Length(s) LOOP 
+        l := Substr(s, i, 1); 
+  
+        t := t 
+             ||'' 
+             ||l; 
+    END LOOP; 
+  
+    IF t = s THEN 
+      dbms_output.Put_line(t 
+                           ||'' 
+                           ||' is palindrome'); 
+    ELSE 
+      dbms_output.Put_line(t 
+                           ||'' 
+                           ||' is not palindrome'); 
+    END IF; 
+END; 
+  
+  
+  
+  -- inbuilt exception
+  DECLARE
+   temp varchar(20);
+BEGIN
+   SELECT emp_id into temp from empl  where emp_name='ram';
+exception
+   WHEN no_data_found THEN
+      dbms_output.put_line('ERROR');
+      dbms_output.put_line('There is no record related to the name');
+end;
+
+-- inbuilt exception
+
+DECLARE
+   tem varchar(20);
+  
+BEGIN
+  
+
+   SELECT emp_id into tem from empl;
+  
+  
+EXCEPTION
+   WHEN too_many_rows THEN
+      dbms_output.put_line('error trying to SELECT too many rows');
+  
+end;
+
+select *
+from empl;
+
+
+--delete record
+DECLARE 
+   a number:=&a; 
+PROCEDURE delete_record(x IN number) IS 
+BEGIN 
+  delete from empl where EMP_ID=x;
+END;   
+BEGIN 
+  delete_record(a); 
+END;
+select *
+from empl;
+
+--trigger
+ CREATE OR REPLACE TRIGGER employee_insert_update
+ BEFORE INSERT OR UPDATE ON empl
+ for each row
+ BEGIN
+       :NEW.emp_name := UPPER(:NEW.emp_name);
+  END;
+insert into empl values(21,'kgf',98979,3,98000,90);
+
+
+--root and cube
+set SERVEROUTPUT ON;
+DECLARE
+      a NUMBER:= 5;
+      b NUMBER:=6;
+    BEGIN
+      CASE a
+      when 5 then dbms_output.put_line(' Square of (5): ' || a*a);
+       END CASE;
+         CASE b
+       when 6 then dbms_output.put_line(' cube of (6): ' || b*b*b);
+     END CASE;
+  END;
+  
+  --table printing
+  declare
+n number;
+i number;
+j number;
+ 
+begin
+n:=&n;
+j:=&n;
+for i in 1..j
+loop
+dbms_output.put_line(n||' x '||i||' = '||n*i);
+end loop;
+end;
+/
+
+
+-- whole numbers and inserting
+CREATE GLOBAL TEMPORARY TABLE table2
+(
+numb1 NUMBER(4)
+)
+ON COMMIT PRESERVE ROWS;
+Declare
+I number;
+Begin
+    I:=0;
+While (I<=49)
+loop
+    Dbms_output.put_line(I|| ' ' );
+    I:=I+1;
+     INSERT INTO table2 VALUES(I);
+End loop;
+End;
+
+
+select *
+from table2;
+
+-- user defined
+declare
+stud empl%rowtype;
+begin
+select *
+into stud from empl where emp_name='blake';
+exception
+
+when no_data_found then
+dbms_output.put_line('data not available');
+when too_many_rows then
+dbms_output.put_line('name is not found');
+end;
+/
+
+
+
