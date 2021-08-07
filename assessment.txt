@@ -1,0 +1,74 @@
+
+-- create employee table
+
+CREATE TABLE `user_db`.`myemp` (
+  `Eno` INT NOT NULL,
+  `Ename` VARCHAR(30) NOT NULL,
+  `Deptno` VARCHAR(45) NOT NULL,
+  `Esal` INT NOT NULL,
+  PRIMARY KEY (`Eno`));
+
+  use `user_db`;
+  alter table myemp
+  add experience int not null;
+  
+INSERT INTO `user_db`.`myemp` (`Eno`, `Ename`, `Deptno`, `Esal`, `experience`) VALUES ('1', 'mahesh', '10', '10000', '1');
+INSERT INTO `user_db`.`myemp` (`Eno`, `Ename`, `Deptno`, `Esal`, `experience`) VALUES ('2', 'siva', '20', '0', '2');
+INSERT INTO `user_db`.`myemp` (`Eno`, `Ename`, `Deptno`, `Esal`, `experience`) VALUES ('3', 'balaji', '30', '7000', '3');
+INSERT INTO `user_db`.`myemp` (`Eno`, `Ename`, `Deptno`, `experience`) VALUES ('4', 'aswin', '40','6000', '4');
+INSERT INTO `user_db`.`myemp` (`Eno`, `Ename`, `Deptno`, `Esal`, `experience`, `comm`) VALUES ('5', 'subro', '50', '1000', '5', '100');
+-- update esal
+update myemp 
+set esal=null
+where esal  BETWEEN 5000 AND 10000;
+  
+  -- aading new row of comm
+ALTER TABLE `user_db`.`myemp` 
+ADD COLUMN `comm` INT NULL AFTER `experience`;
+
+-- created new table
+CREATE TABLE `user_db`.`empcommnull` (
+  `id` INT NOT NULL);
+
+create table empcommnu like myemp;
+
+
+Create table empcommnul
+As (select*
+From myemp
+Where comm is null) ;
+
+
+select *
+from myemp;
+
+create table ebill(cno number(4)primary key, cname varchar(30)not null , nounits number(4)not null, bamt number(8,2));
+
+
+insert into ebill values(89,'karthi',50,null);
+insert into ebill values(90,'ajay',55,null);
+insert into ebill values(91,'akash',60,null);
+insert into ebill values(92,'vinay',50,null);
+
+select *
+from ebill;
+
+
+
+Declare
+A empid id% type := 5;
+B  empname name%type;
+C empdep dep%type;
+Begin 
+Select name, dep Into A Empid,empdep
+From emp
+Where Id = empid;
+Dbms ( 'name: || 'empname) ;
+Dbms ('dep:= || 'empdep) ;
+Exception
+When no_data_found then
+
+Dbms_output.put_line('no employees') ;
+When others than  
+Dbms_output.put_line('error') ;
+End;
